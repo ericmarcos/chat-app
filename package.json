@@ -1,17 +1,20 @@
 {
-  "name": "ChatApp",
-  "version": "0.0.1",
+  "name": "@serverless/chat-app",
+  "version": "0.1.1",
+  "main": "./serverless.js",
   "publishConfig": {
     "access": "public"
   },
   "scripts": {
+    "postinstall": "cd frontend && npm i",
     "test": "echo \"Error: no test specified\" && exit 1",
     "lint": "eslint . --fix --cache"
   },
   "author": "Serverless, Inc.",
   "license": "MIT",
   "dependencies": {
-    "@serverless/components": "^0.0.1"
+    "@serverless/components": "^0.1.0",
+    "@serverless/realtime-app": "^0.1.1"
   },
   "devDependencies": {
     "babel-eslint": "9.0.0",

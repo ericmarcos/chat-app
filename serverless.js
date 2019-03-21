@@ -29,7 +29,7 @@ class ChatApp extends Component {
     // const dynamoDb = await this.load('DynamoDb')
 
     // Deploy the RealtimeApp...
-    const realtimeApp = await this.load('RealtimeApp')
+    const realtimeApp = await this.load('@serverless/realtime-app')
     let outputs = await realtimeApp({
       name: this.constructor.name,
       description: 'A real-time chat application.',
@@ -65,7 +65,7 @@ class ChatApp extends Component {
   async remove() {
     this.cli.status('Removing')
 
-    const realtimeApp = await this.load('RealtimeApp')
+    const realtimeApp = await this.load('@serverless/realtime-app')
     const outputs = await realtimeApp.remove()
 
     this.state = {}
@@ -74,7 +74,7 @@ class ChatApp extends Component {
   }
 
   async connect(inputs = {}) {
-    const realtimeApp = await this.load('RealtimeApp')
+    const realtimeApp = await this.load('@serverless/realtime-app')
     return realtimeApp.connect({ code: './backend', ...inputs })
   }
 }
