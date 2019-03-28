@@ -1,25 +1,41 @@
-# Serverless Component: ChatApp
+# ChatApp
 
-This Serverless Framework Component is a full-stack chat application, with a real-time back-end built on AWS API Gateway’s websocket support.  
+This Serverless Component is a full-stack chat application, with a real-time back-end built on AWS API Gateway’s websocket support.  
 
 This Component seeks to provide everything you need to easily deploy and manage the lifecycle of a Chat Application.
 
-### Start
+## Usage
 
-Install the dependencies in the front-end...
+### Declarative
 
-```bash
-$ cd frontend && npm i
+```yml
+
+name: my-chat-app
+stage: dev
+
+ChatApp@0.1.4::my-chat-app:
+  colorBackground: #000000
+  colorInputText: #FFFFFF
+  logoUrl: null
+
 ```
 
-Go back to the root folder...
+### Programatic
 
-```bash
-$ cd ..
+```
+npm i --save @serverless/chat-app
 ```
 
-Run Serverless Components...
+```js
 
-```bash
-$ sf
+const chatApp = await this.load('@serverless/chat-app')
+
+    const inputs = {
+      colorBackground: '#000000',
+      colorInputText: '#FFFFFF',
+      logoUrl: null
+    }
+
+await chatApp(inputs)
+
 ```
