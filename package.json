@@ -14,7 +14,7 @@
   "license": "MIT",
   "dependencies": {
     "@serverless/components": "^0.1.0",
-    "@serverless/realtime-app": "^0.1.0"
+    "@serverless/realtime-app": "^0.1.2"
   },
   "devDependencies": {
     "babel-eslint": "9.0.0",
