@@ -50,7 +50,7 @@ class ChatApp extends Component {
 
     // Deploy the RealtimeApp...
     const realtimeApp = await this.load('@serverless/realtime-app')
-    let outputs = await realtimeApp({
+    let realtimeAppOutputs = await realtimeApp({
       name: this.constructor.name,
       description: 'A real-time chat application.',
       frontend: {
@@ -73,13 +73,14 @@ class ChatApp extends Component {
       }
     })
 
+    const outputs = {}
+    outputs.url = realtimeAppOutputs.frontend.url
+
     // Save state
-    this.state.url = outputs.frontend.url
+    this.state.url = outputs.url
     await this.save()
 
-    this.cli.outputs({
-      url: this.state.url
-    })
+    this.cli.outputs(outputs)
     return outputs
   }
 
