@@ -26,7 +26,22 @@ class ChatApp extends Component {
     inputs = Object.assign(defaults, inputs)
 
     // Deploy the DynamoDB table...
-    // const dynamoDb = await this.load('DynamoDb')
+    const dbConnections = await this.load('@serverless/aws-dynamodb', 'connections')
+    const dbConnectionsOutputs = await dbConnections({
+      name: `chatapp-${this.context.stage}-connections`,
+      attributeDefinitions: [{
+        AttributeName: 'connectionId',
+        AttributeType: 'S'
+      }],
+      keySchema: [{
+        AttributeName: 'connectionId',
+        KeyType: 'HASH'
+      }],
+      provisionedThroughput: {
+        ReadCapacityUnits: 3,
+        WriteCapacityUnits: 3
+      }
+    })
 
     // Deploy the RealtimeApp...
     const realtimeApp = await this.load('@serverless/realtime-app')
@@ -46,7 +61,10 @@ class ChatApp extends Component {
         }
       },
       backend: {
-        code: path.join(__dirname, 'backend')
+        code: path.join(__dirname, 'backend'),
+        env: {
+          dbConnectionsName: dbConnectionsOutputs.name
+        }
       }
     })
 

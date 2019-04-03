@@ -6,7 +6,7 @@
     "access": "public"
   },
   "scripts": {
-    "postinstall": "cd ./frontend && npm install",
+    "postinstall": "cd ./frontend && npm install && cd ../backend && npm install",
     "test": "echo \"Error: no test specified\" && exit 1",
     "lint": "eslint . --fix --cache"
   },
@@ -14,7 +14,8 @@
   "license": "MIT",
   "dependencies": {
     "@serverless/components": "^0.1.0",
-    "@serverless/realtime-app": "^0.1.2"
+    "@serverless/realtime-app": "^0.1.2",
+    "@serverless/aws-dynamodb": "^0.1.0"
   },
   "devDependencies": {
     "babel-eslint": "9.0.0",
