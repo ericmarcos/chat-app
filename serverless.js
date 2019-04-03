@@ -25,10 +25,12 @@ class ChatApp extends Component {
     }
     inputs = Object.assign(defaults, inputs)
 
+    const dbConnectionsName = `chatapp-${this.context.stage}-connections`
+
     // Deploy the DynamoDB table...
     const dbConnections = await this.load('@serverless/aws-dynamodb', 'connections')
     const dbConnectionsOutputs = await dbConnections({
-      name: `chatapp-${this.context.stage}-connections`,
+      name: dbConnectionsName,
       attributeDefinitions: [{
         AttributeName: 'connectionId',
         AttributeType: 'S'
@@ -42,6 +44,9 @@ class ChatApp extends Component {
         WriteCapacityUnits: 3
       }
     })
+
+    this.state.dbConnectionsName = dbConnectionsName
+    await this.save()
 
     // Deploy the RealtimeApp...
     const realtimeApp = await this.load('@serverless/realtime-app')
@@ -68,11 +73,13 @@ class ChatApp extends Component {
       }
     })
 
-    outputs = {
-      url: outputs.frontend.url
-    }
+    // Save state
+    this.state.url = outputs.frontend.url
+    await this.save()
 
-    this.cli.outputs(outputs)
+    this.cli.outputs({
+      url: this.state.url
+    })
     return outputs
   }
 
@@ -82,6 +89,10 @@ class ChatApp extends Component {
 
   async remove() {
     this.cli.status('Removing')
+
+    // Deploy the DynamoDB table...
+    const dbConnections = await this.load('@serverless/aws-dynamodb', 'connections')
+    const dbConnectionsOutputs = await dbConnections.remove()
 
     const realtimeApp = await this.load('@serverless/realtime-app')
     const outputs = await realtimeApp.remove()
