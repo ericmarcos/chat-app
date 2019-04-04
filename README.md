@@ -1,41 +1,55 @@
-# ChatApp
+&nbsp;
 
-This Serverless Component is a full-stack chat application, with a real-time back-end built on AWS API Gateway’s websocket support.  
+Instantly deploy a zero configuration, complete chat application in under a minute using [Serverless Components](https://github.com/serverless/components).
 
-This Component seeks to provide everything you need to easily deploy and manage the lifecycle of a Chat Application.
+&nbsp;
 
-## Usage
+1. [Install](#1-install)
+2. [Create](#2-create)
+3. [Configure](#3-configure)
+4. [Deploy](#4-deploy)
 
-### Declarative
+&nbsp;
+
+
+### 1. Install
+
+```
+$ npm install -g @serverless/components
+```
+
+### 2. Create
+
+Just create a `serverless.yml` file.
+
+```console
+$ touch serverless.yml
+```
+
+### 3. Configure
 
 ```yml
+# serverless.yml
 
 name: my-chat-app
 stage: dev
 
-ChatApp@0.1.4::my-chat-app:
-  colorBackground: #000000
-  colorInputText: #FFFFFF
-  logoUrl: null
-
+myChatApp:
+  component: @serverless/chat-app
+  inputs: # all inputs are optional :)
+    colorBackground: #000000
+    colorInputText: #FFFFFF
+    logoUrl: null
 ```
 
-### Programatic
+### 4. Deploy
 
 ```
-npm i --save @serverless/chat-app
+$ components
 ```
 
-```js
+&nbsp;
 
-const chatApp = await this.load('@serverless/chat-app')
+### New to Components?
 
-    const inputs = {
-      colorBackground: '#000000',
-      colorInputText: '#FFFFFF',
-      logoUrl: null
-    }
-
-await chatApp(inputs)
-
-```
+Checkout the [Serverless Components](https://github.com/serverless/components) repo for more information.
