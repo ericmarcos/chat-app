@@ -1,6 +1,6 @@
 &nbsp;
 
-Instantly deploy a zero configuration, complete chat application in under a minute using [Serverless Components](https://github.com/serverless/components).
+Instantly deploy a complete zero configuration serverless chat application in under a minute using [Serverless Components](https://github.com/serverless/components).
 
 &nbsp;
 
