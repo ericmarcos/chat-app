@@ -35,7 +35,7 @@ name: my-chat-app
 stage: dev
 
 myChatApp:
-  component: @serverless/chat-app
+  component: "@serverless/chat-app"
   inputs: # all inputs are optional :)
     colorBackground: #000000
     colorInputText: #FFFFFF
