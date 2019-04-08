@@ -44,7 +44,7 @@ myChatApp:
 
 ### 4. Deploy
 
-```
+```console
 ChatApp (master)$ components
 
   ChatApp › outputs:
