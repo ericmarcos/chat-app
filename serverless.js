@@ -31,14 +31,18 @@ class ChatApp extends Component {
     const dbConnections = await this.load('@serverless/aws-dynamodb', 'connections')
     const dbConnectionsOutputs = await dbConnections({
       name: dbConnectionsName,
-      attributeDefinitions: [{
-        AttributeName: 'connectionId',
-        AttributeType: 'S'
-      }],
-      keySchema: [{
-        AttributeName: 'connectionId',
-        KeyType: 'HASH'
-      }],
+      attributeDefinitions: [
+        {
+          AttributeName: 'connectionId',
+          AttributeType: 'S'
+        }
+      ],
+      keySchema: [
+        {
+          AttributeName: 'connectionId',
+          KeyType: 'HASH'
+        }
+      ],
       provisionedThroughput: {
         ReadCapacityUnits: 3,
         WriteCapacityUnits: 3
@@ -50,19 +54,20 @@ class ChatApp extends Component {
 
     // Deploy the RealtimeApp...
     const realtimeApp = await this.load('@serverless/realtime-app')
-    let realtimeAppOutputs = await realtimeApp({
+    const realtimeAppOutputs = await realtimeApp({
       name: this.constructor.name,
       description: 'A real-time chat application.',
       frontend: {
-        path: path.join(__dirname, 'frontend'),
-        assets: path.join(__dirname, 'frontend', 'build'),
-        envFile: path.join(__dirname, 'frontend', 'src', 'env.js'),
-        buildCmd: 'npm run build',
-        localCmd: 'npm run start',
-        env: {
-          colorBackground: inputs.colorBackground,
-          colorInputText: inputs.colorInputText,
-          logoUrl: inputs.logoUrl
+        build: {
+          dir: 'build',
+          command: 'npm run build',
+          localCmd: 'npm run start',
+          envFile: './src/env.js',
+          env: {
+            colorBackground: inputs.colorBackground,
+            colorInputText: inputs.colorInputText,
+            logoUrl: inputs.logoUrl
+          }
         }
       },
       backend: {
@@ -93,19 +98,14 @@ class ChatApp extends Component {
 
     // Deploy the DynamoDB table...
     const dbConnections = await this.load('@serverless/aws-dynamodb', 'connections')
-    const dbConnectionsOutputs = await dbConnections.remove()
+    await dbConnections.remove()
 
     const realtimeApp = await this.load('@serverless/realtime-app')
-    const outputs = await realtimeApp.remove()
+    await realtimeApp.remove()
 
     this.state = {}
     await this.save()
     return {}
-  }
-
-  async connect(inputs = {}) {
-    const realtimeApp = await this.load('@serverless/realtime-app')
-    return realtimeApp.connect({ code: './backend', ...inputs })
   }
 }
 

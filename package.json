@@ -1,21 +1,21 @@
 {
   "name": "@serverless/chat-app",
-  "version": "0.1.6",
+  "version": "0.1.8",
   "main": "./serverless.js",
   "publishConfig": {
     "access": "public"
   },
   "scripts": {
-    "postinstall": "cd ./frontend && npm install && cd ../backend && npm install",
+    "postinstall": "cd ./frontend && npm install",
     "test": "echo \"Error: no test specified\" && exit 1",
     "lint": "eslint . --fix --cache"
   },
   "author": "Serverless, Inc.",
   "license": "MIT",
   "dependencies": {
+    "@serverless/aws-dynamodb": "^0.1.0",
     "@serverless/components": "^0.1.0",
-    "@serverless/realtime-app": "^0.1.2",
-    "@serverless/aws-dynamodb": "^0.1.0"
+    "@serverless/realtime-app": "^0.1.0"
   },
   "devDependencies": {
     "babel-eslint": "9.0.0",
