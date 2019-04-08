@@ -1,6 +1,6 @@
 &nbsp;
 
-Instantly deploy a zero configuration serverless chat application to AWS in under a minute using [Serverless Components](https://github.com/serverless/components).
+Instantly deploy a zero configuration serverless chat app to AWS in seconds using [Serverless Components](https://github.com/serverless/components).
 
 &nbsp;
 
@@ -45,7 +45,15 @@ myChatApp:
 ### 4. Deploy
 
 ```
-$ components
+ChatApp (master)$ components
+
+  ChatApp › outputs:
+  url:  'http://chatapp-aegay7.s3-website-us-east-1.amazonaws.com'
+
+
+  56s › dev › ChatApp › done
+
+ChatApp (master)$
 ```
 
 &nbsp;
