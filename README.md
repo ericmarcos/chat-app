@@ -54,7 +54,7 @@ myChatApp:
 ### 4. Deploy
 
 ```console
-ChatApp (master)$ components
+chat-app (master)$ components
 
   ChatApp › outputs:
   url:  'http://chatapp-aegay7.s3-website-us-east-1.amazonaws.com'
@@ -62,7 +62,7 @@ ChatApp (master)$ components
 
   56s › dev › ChatApp › done
 
-ChatApp (master)$
+chat-app (master)$
 ```
 
 &nbsp;
