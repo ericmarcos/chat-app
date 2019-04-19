@@ -1,3 +1,5 @@
+# chat-app
+
 &nbsp;
 
 Instantly deploy a zero configuration serverless chat app to AWS in seconds using [Serverless Components](https://github.com/serverless/components).
