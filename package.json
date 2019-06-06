@@ -1,6 +1,6 @@
 {
   "name": "@serverless/chat-app",
-  "version": "0.1.8",
+  "version": "0.2.0",
   "main": "./serverless.js",
   "publishConfig": {
     "access": "public"
@@ -13,9 +13,9 @@
   "author": "Serverless, Inc.",
   "license": "Apache",
   "dependencies": {
-    "@serverless/aws-dynamodb": "^0.1.0",
-    "@serverless/components": "^0.1.0",
-    "@serverless/realtime-app": "^0.1.0"
+    "@serverless/aws-dynamodb": "^0.2.0",
+    "@serverless/components": "^0.2.0",
+    "@serverless/realtime-app": "^0.2.0"
   },
   "devDependencies": {
     "babel-eslint": "9.0.0",

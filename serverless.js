@@ -15,7 +15,7 @@ class ChatApp extends Component {
    */
 
   async default(inputs = {}) {
-    this.cli.status(`Deploying`)
+    this.ui.status(`Deploying`)
 
     // Merge inputs with defaults
     const defaults = {
@@ -85,7 +85,9 @@ class ChatApp extends Component {
     this.state.url = outputs.url
     await this.save()
 
-    this.cli.outputs(outputs)
+    this.ui.log()
+    this.ui.output('url', outputs.url)
+
     return outputs
   }
 
@@ -94,7 +96,7 @@ class ChatApp extends Component {
    */
 
   async remove() {
-    this.cli.status('Removing')
+    this.ui.status('Removing')
 
     // Deploy the DynamoDB table...
     const dbConnections = await this.load('@serverless/aws-dynamodb', 'connections')
