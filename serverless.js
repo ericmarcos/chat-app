@@ -3,7 +3,7 @@
  */
 
 const path = require('path')
-const { Component } = require('@serverless/components')
+const { Component } = require('@serverless/core')
 
 /*
  * Class – ChatApp
@@ -15,7 +15,7 @@ class ChatApp extends Component {
    */
 
   async default(inputs = {}) {
-    this.ui.status(`Deploying`)
+    this.context.status(`Deploying`)
 
     // Merge inputs with defaults
     const defaults = {
@@ -25,12 +25,9 @@ class ChatApp extends Component {
     }
     inputs = Object.assign(defaults, inputs)
 
-    const dbConnectionsName = `chatapp-${this.context.stage}-connections`
-
     // Deploy the DynamoDB table...
     const dbConnections = await this.load('@serverless/aws-dynamodb', 'connections')
     const dbConnectionsOutputs = await dbConnections({
-      name: dbConnectionsName,
       attributeDefinitions: [
         {
           AttributeName: 'connectionId',
@@ -42,32 +39,23 @@ class ChatApp extends Component {
           AttributeName: 'connectionId',
           KeyType: 'HASH'
         }
-      ],
-      provisionedThroughput: {
-        ReadCapacityUnits: 3,
-        WriteCapacityUnits: 3
-      }
+      ]
     })
-
-    this.state.dbConnectionsName = dbConnectionsName
-    await this.save()
-
     // Deploy the RealtimeApp...
     const realtimeApp = await this.load('@serverless/realtime-app')
     const realtimeAppOutputs = await realtimeApp({
       name: this.constructor.name,
       description: 'A real-time chat application.',
       frontend: {
-        build: {
-          dir: 'build',
-          command: 'npm run build',
-          localCmd: 'npm run start',
-          envFile: './src/env.js',
-          env: {
-            colorBackground: inputs.colorBackground,
-            colorInputText: inputs.colorInputText,
-            logoUrl: inputs.logoUrl
-          }
+        code: {
+          src: 'build',
+          root: path.join(__dirname, 'frontend'),
+          hook: 'npm run build'
+        },
+        env: {
+          colorBackground: inputs.colorBackground,
+          colorInputText: inputs.colorInputText,
+          logoUrl: inputs.logoUrl
         }
       },
       backend: {
@@ -84,9 +72,6 @@ class ChatApp extends Component {
     // Save state
     this.state.url = outputs.url
     await this.save()
-
-    this.ui.log()
-    this.ui.output('url', outputs.url)
 
     return outputs
   }

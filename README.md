@@ -13,11 +13,10 @@ Instantly deploy a zero configuration serverless chat app to AWS in seconds usin
 
 &nbsp;
 
-
 ### 1. Install
 
 ```
-$ npm install -g @serverless/components
+$ npm install -g serverless
 ```
 
 ### 2. Create
@@ -46,7 +45,7 @@ name: my-chat-app
 stage: dev
 
 myChatApp:
-  component: "@serverless/chat-app"
+  component: '@serverless/chat-app'
   inputs: # all inputs are optional :)
     colorBackground: white
     colorInputText: black
