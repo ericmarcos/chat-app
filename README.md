@@ -21,17 +21,15 @@ $ npm install -g serverless
 
 ### 2. Create
 
-Just create a `serverless.yml` file.
+Just create `serverless.yml` and `.env` files.
 
 ```console
 $ touch serverless.yml
-$ touch .env      # your development AWS api keys
-$ touch .env.prod # your production AWS api keys
+$ touch .env      # your AWS api keys
 ```
 
-the `.env` files are not required if you have the aws keys set globally and you want to use a single stage, but they should look like this.
-
 ```
+# .env
 AWS_ACCESS_KEY_ID=XXX
 AWS_SECRET_ACCESS_KEY=XXX
 ```
@@ -40,9 +38,6 @@ AWS_SECRET_ACCESS_KEY=XXX
 
 ```yml
 # serverless.yml
-
-name: my-chat-app
-stage: dev
 
 myChatApp:
   component: '@serverless/chat-app'
@@ -55,15 +50,7 @@ myChatApp:
 ### 4. Deploy
 
 ```console
-chat-app (master)$ components
-
-  ChatApp › outputs:
-  url:  'http://chatapp-aegay7.s3-website-us-east-1.amazonaws.com'
-
-
-  56s › dev › ChatApp › done
-
-chat-app (master)$
+$ serverless
 ```
 
 &nbsp;
